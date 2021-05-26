@@ -5,10 +5,12 @@ This C++ code consist of Algorithmes and concepts of prue strategies in a game o
 - Weakly dominant strategy.
 - Equilibrium by successive elimination of strongly dominant and weakly dominant strategies.
 
-#Future additions
+Future additions
 - Nash equilibria.
 - Pareto profilesdominants.
 - Security level of a strategy as well as a player.
 
+Instructions
+* Execute "prog.bat" (You must have a g++ installed).
 
 

@@ -208,10 +208,12 @@ void delLine(){
                 {
                     cout << "Strategie " << strategies->at(i) <<" for player 1 is dominated by strategie " << strategies->at(j) <<endl;
                     temp.push_back(i);
+                    goto NEXT;
                 }
             }
         } 
     }
+    NEXT:
     if (temp.empty())
     {
         cout << "There is no  dominant strategy for player 1"<<endl;
@@ -287,10 +289,12 @@ void delCol(){
                 {
                     cout << "Strategie " << strategies->at(i+nb_strategie1) <<" for player 2 is dominated by strategie " << strategies->at(j+nb_strategie1) <<endl;
                     temp.push_back(i);
+                    goto NEXT2;
                 }
             }
         } 
     }
+    NEXT2:
     if (temp.empty())
     {
         cout << "There is no dominant strategy for player 2"<<endl;

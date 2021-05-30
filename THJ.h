@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <iterator>
+#include <Windows.h>
 #include <bits/stdc++.h>
 #include "TextTable.h"
 #define TEXTTABLE_ENCODE_MULTIBYTE_STRINGS
@@ -357,4 +358,5 @@ void eissd(){
     {
         cout << "the equilibria for this game is " << matJeu[0][0].getName() << "=(" << matJeu[0][0].getScorePlayer1() << "," << matJeu[0][0].getscorePlayer2() << ")" << endl;
     }
+    lineDel = true;colDel = true;
 }

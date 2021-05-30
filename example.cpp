@@ -1,17 +1,18 @@
 #include "THJ.h"
 
 int main()
-{   START:
+{   
     system("cls");
-
     TextTable* t = new TextTable( '-', '|', '+' );
     vector<vector<Strategie>> payOff;
 
     cout << "How many strategies player 1 have ?" << endl << "==>" ;
     cin >> nb_strategie1;
+    system("cls");
     cout << "How many strategies player 2 have ?" << endl << "==>" ;
     cin >> nb_strategie2;
-
+    system("cls");
+    int nb1 = nb_strategie1,nb2 = nb_strategie2;
     string name;
     
     vector<Strategie> st;
@@ -22,14 +23,14 @@ int main()
         cin >> name;
         strategies->push_back(name);
     }
-
+    system("cls");
     for (int i = 0; i < nb_strategie2; i++)
     {
         cout << "Name of the startegy " << i+1 << " for player 2:" ;
         cin >> name;
         strategies->push_back(name);
     }
-
+    vector<string> init = *strategies;
     t->add("Player 1 | Player 2");
     for (int i = nb_strategie1; i < strategies->size(); i++)
     {
@@ -59,61 +60,92 @@ int main()
         st.clear();
         t->endOfRow();
     }
+    MENU:
+    system("cls");
     t->setAlignment( 2, TextTable::Alignment::RIGHT );
     cout <<"The payoff matrice of the game :\n"<< *t;
-
     payOff = matJeu;
     int choice;
-    cout <<"if you want to continue enter 1,if you want to re-enter the details press 2"<< endl <<"==>";
+    cout << "\n\nMain Menu:" << endl;
+    cout << "==========" << endl;
+    cout << "1 - To determine any strict/weak dominant strategy in the entered game." << endl;
+    cout << "2 - To determine if there is an equilibria in the entered game." << endl; 
+    cout << "0 - To exit." << endl;
+    cout <<"==>";
     cin >> choice;
-    if (choice == 2)
+    if (choice == 0)
     {
-        delete t;
-        delete strategies;
-        goto START;
+        goto END;
     }
     else
     {
-        system("cls");
-        int sdm = determineMDS(1);
-        int sdm2 = determineMDS(2);
-        if (sdm != -1)
+        if (choice == 1)
         {
-            cout << "The strict dominant strategy for player 1 is : ";
-            cout << strategies->at(sdm) << endl;
-        }
-        else
-        {
-            int fdm = determineMDF(1);
-            if (fdm != -1)
+            system("cls");
+            int sdm = determineMDS(1);
+            int sdm2 = determineMDS(2);
+            if (sdm != -1)
             {
-                cout << "The weak dominant strategy for player 1 is : ";
-                cout << strategies->at(fdm) << endl;
+                cout << "The strict dominant strategy for player 1 is : ";
+                cout << strategies->at(sdm) << endl;
             }
             else
             {
-                cout << "There is no dominant strategy for player 1!" << endl;
+                int fdm = determineMDF(1);
+                if (fdm != -1)
+                {
+                    cout << "The weak dominant strategy for player 1 is : ";
+                    cout << strategies->at(fdm) << endl;
+                }
+                else
+                {
+                    cout << "There is no dominant strategy for player 1!" << endl;
+                }
             }
-        }
-        if (sdm2 != -1)
-        {
-           cout << "The strict dominant strategy for player 2 is : ";
-            cout << strategies->at(sdm2) << endl;
-        }
-        else
-        {
-            int fdm2 = determineMDF(2);
-            if (fdm2 != -1)
+            if (sdm2 != -1)
             {
-                cout << "The weak dominant strategy for player 2 is : ";
-                cout << strategies->at(fdm2) << endl;
+                cout << "The strict dominant strategy for player 2 is : ";
+                cout << strategies->at(sdm2+nb_strategie1) << endl;
             }
             else
             {
-                cout << "There is no dominant strategy for player 2!" << endl;
+                int fdm2 = determineMDF(2);
+                if (fdm2 != -1)
+                {
+                    cout << "The weak dominant strategy for player 2 is : ";
+                    cout << strategies->at(fdm2+nb_strategie1) << endl;
+                }
+                else
+                {
+                    cout << "There is no dominant strategy for player 2!" << endl;
+                }
             }
         }
-        eissd();
+        if (choice == 2)
+        {
+            system("cls");
+            eissd();
+            nb_strategie1 = nb1;
+            nb_strategie2 = nb2;
+            *strategies = init;
+            matJeu.clear();
+            matJeu = payOff;
+        }
+        cout << "\n\nOPTIONS:" << endl;
+        cout << "========" << endl;
+        cout << "1 - To go back to main menu" << endl; 
+        cout << "0 - To exit" << endl;
+        cout <<"==>";
+        int choice2;
+        cin >> choice2;
+        if (choice2 == 1)
+        {
+            goto MENU;   
+        }
     }
+    END:
+    system("cls");
+    cout << "Closing....Goodby" ;
+    Sleep(2000);
     return 0;
 }

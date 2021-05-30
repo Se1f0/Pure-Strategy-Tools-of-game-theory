@@ -1,2 +1,2 @@
-g++ -o test example.cpp
-test
+g++ -o application example.cpp
+application
